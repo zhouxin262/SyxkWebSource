@@ -19,6 +19,11 @@ public partial class admin_sys_kc : System.Web.UI.Page
         {
             Response.Redirect("error.aspx");
         }
+        if (s.getUserXy().ToString() != "")
+        {
+            SqlDataSource4.SelectCommand = "SELECT D_SYSLXB.XYID, T_SYSXXB.ID, T_SYSXXB.SYSMC FROM T_SYSXXB INNER JOIN D_SYSLXB ON T_SYSXXB.SYSLXID = D_SYSLXB.ID WHERE [XYID] = " + s.getUserXy().ToString() + "  ORDER BY [SYSMC]";
+            SqlDataSource3.SelectCommand = "SELECT [KCMC], [ID] FROM [V_KCXXB] WHERE [XYID] = " + s.getUserXy().ToString() + " ORDER BY [KCMC]";
+        }
 		if ( !IsPostBack )
 		{
 			KCDDL.DataSource = SqlDataSource3;

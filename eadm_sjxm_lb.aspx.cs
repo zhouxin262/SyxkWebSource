@@ -26,7 +26,7 @@ public partial class eadm_sy_bj : System.Web.UI.Page
 		}
 		else
 		{
-			SqlDataSource1.SelectCommand = "SELECT [ID], [SYMC], [KCID], [KCMC], [SYLBID], [SYLXID], [SYYQID], [LBMC], [LXMC], [SYZLBID],[XSLB],[SYXS],[NRDXZ],[YRDXZ],[SYJJ],[YQMC],[JSXM] FROM [V_SYSJXMXXB] where sqzt=-1 kcid in (select kcid from v_gly_sys_kc where glyid='" + s.getUserCode() + "')  and (symc like '%" + sxtj + "%' or kcmc like '%" + sxtj + "%' or lbmc like '%" + sxtj + "%' or lxmc like '%" + sxtj + "%') ORDER BY [SYMC],[KCMC]";
+			SqlDataSource1.SelectCommand = "SELECT [ID], [SYMC], [KCID], [KCMC], [SYLBID], [SYLXID], [SYYQID], [LBMC], [LXMC], [SYZLBID],[XSLB],[SYXS],[NRDXZ],[YRDXZ],[SYJJ],[YQMC],[JSXM] FROM [V_SYSJXMXXB] where sqzt=-1 and kcid in (select kcid from v_gly_sys_kc where glyid='" + s.getUserCode() + "')  and (symc like '%" + sxtj + "%' or kcmc like '%" + sxtj + "%' or lbmc like '%" + sxtj + "%' or lxmc like '%" + sxtj + "%') ORDER BY [SYMC],[KCMC]";
 		}
 		
 	}
@@ -43,13 +43,13 @@ public partial class eadm_sy_bj : System.Web.UI.Page
 		else
 		{
 			Session["sxtj"] = sxtj;
-			Response.Redirect( "eadm_sy_bj.aspx" );
+            Response.Redirect("eadm_sjxm_lb.aspx");
 		}
 
 	}
 	protected void czButton_Click ( object sender , EventArgs e )
 	{
 		Session["sxtj"] = "";
-		Response.Redirect( "eadm_sy_bj.aspx" );
+		Response.Redirect( "eadm_sjxm_lb.aspx" );
 	}
 }

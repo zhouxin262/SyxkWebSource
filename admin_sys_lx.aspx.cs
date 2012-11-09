@@ -18,5 +18,11 @@ public partial class admin_sys_lx : System.Web.UI.Page
         {
             Response.Redirect("error.aspx");
         }
+
+        if (s.getUserXy() != "")
+        {
+            SqlDataSource1.SelectCommand = "SELECT ID,LXMC,LXYWMC FROM [D_SYSLXB] WHERE [XYID] = " + s.getUserXy().ToString();
+            SqlDataSource1.InsertParameters["XYID"].DefaultValue = s.getUserXy();
+        }
     }
 }

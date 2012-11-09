@@ -40,11 +40,13 @@ public partial class login : System.Web.UI.Page
                 url = "stuDefault.aspx";
                 s.setSecurity(priCode.xs);
                 s.setUserName(dm.getUnameByUcode(uCode, priCode.xs));
+                s.setUserXy(dm.getUxyByUcode(uCode, priCode.xs));
                 break;
             case 1://任课教师
                 result = dm.jsLogin(uCode, uPass);
                 url = "teaDefault.aspx";
                 s.setUserName(dm.getUnameByUcode(uCode, priCode.js));
+                s.setUserXy(dm.getUxyByUcode(uCode, priCode.js));
                 s.setSecurity(priCode.js);
                 break;
             case 2://实验教师
@@ -52,12 +54,21 @@ public partial class login : System.Web.UI.Page
                 url = "eadmDefault.aspx";
                 s.setSecurity(priCode.sygly);
                 s.setUserName(dm.getUnameByUcode(uCode, priCode.sygly));
+                s.setUserXy(dm.getUxyByUcode(uCode, priCode.sygly));
                 break;
             case 3://管理员
                 result = dm.adminLogin(uCode, uPass);
                 url = "adminDefault.aspx";
                 s.setSecurity(priCode.xtgly);
                 s.setUserName(dm.getUnameByUcode(uCode, priCode.xtgly));
+                s.setUserXy(dm.getUxyByUcode(uCode, priCode.xtgly));
+                break;
+            case 4://教务管理员
+                result = dm.aadmLogin(uCode, uPass);
+                url = "aadmDefault.aspx";
+                s.setSecurity(priCode.jwgly);
+                s.setUserName(dm.getUnameByUcode(uCode, priCode.jwgly));
+                s.setUserXy(dm.getUxyByUcode(uCode, priCode.jwgly));
                 break;
 
 

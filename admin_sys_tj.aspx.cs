@@ -18,6 +18,11 @@ public partial class eadm_sys_tj : System.Web.UI.Page
         {
             Response.Redirect("error.aspx");
         }
+
+        if (s.getUserXy() != "")
+        {
+            SYSLXSDS.SelectCommand = "SELECT [ID], [LXMC] FROM [D_SYSLXB] WHERE [XYID] = " + s.getUserXy().ToString();
+        }
     }
 	protected void addButton_Click ( object sender , EventArgs e )
 	{

@@ -21,7 +21,16 @@ public partial class admin_gly : System.Web.UI.Page
         }
 		dbModule dm = new dbModule();
 		SqlDataSource1.SelectCommand = "SELECT [ID], [GLYXM], [SYSID], [GLYID], [SYSMC], [SYSDD] FROM [V_SYSGLY]";
-		
+
+
+        if (s.getUserXy() != "")
+        {
+            SqlDataSource1.SelectCommand = "SELECT [ID], [GLYXM], [SYSID], [GLYID], [SYSMC], [SYSDD] FROM [V_SYSGLY] WHERE [GLYXY] = "+ s.getUserXy();
+            GLYSDS.SelectCommand = "SELECT [DLM], [GLYXM] FROM [T_GLYXXB] WHERE ([GLYLX] = @GLYLX) AND ([GLYXY] = " + s.getUserXy() + ") ORDER BY [GLYXM]";
+            SYSSDS.SelectCommand= "SELECT [ID], [LXMC] FROM [D_SYSLXB] WHERE [XYID] = " + s.getUserXy();
+            SYFJSDS.SelectCommand = "SELECT [ID], [SYSMC], [SYSLXID] FROM [T_SYSXXB] WHERE ([SYSLXID] = @SYSLXID)";
+        }
+
 		if ( !IsPostBack )
 		{
 			//SYFJDDL.DataSourceID = "SYFJSDS";

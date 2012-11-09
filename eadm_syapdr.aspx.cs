@@ -23,7 +23,13 @@ public partial class eadm_syapdr : System.Web.UI.Page
         }
 	}
 	protected void addButton_Click ( object sender , EventArgs e )
-	{
+    {
+        Security s = Session["sec"] as Security;
+        if (s == null)
+        {
+            Response.Redirect("error.aspx");
+        }
+
 		if ( !FileUpload1.HasFile )
 		{
 			Response.Write( "<script>alert('请选择EXCEL文件！');</script>" );
@@ -197,10 +203,9 @@ public partial class eadm_syapdr : System.Web.UI.Page
 						dtError.Rows.Add( dr );
 						continue;
 					}
-
+                    
 					//////添加实验课程
-                    if (
-					dm.addKcxx( strKCBH , strKCMC , strRKJS , "" , kcxs , 0 )==-1)
+                    if (dm.addKcxx( strKCBH , strKCMC , strRKJS , "" , kcxs , 0, Int16.Parse(s.getUserXy()))==-1)
                     {
                         DataRow dr = dtError.NewRow();
                         dr[0] = i + 1;

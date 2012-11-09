@@ -22,12 +22,13 @@ public partial class aadm_xsxx_bj : System.Web.UI.Page
 		dbModule dm = new dbModule();
 		if ( sxtj == "" || sxtj == null )
 		{
-			SqlDataSource1.SelectCommand = "SELECT XSXH,XSXM, XYID, ZYID, XSLBID, SJH,NJ, YJDZ,ZYMC,LBMC,XYMC FROM V_XSJBXX";
+            SqlDataSource1.SelectCommand = "SELECT XSXH,XSXM, XYID, ZYID, XSLBID, SJH,NJ, YJDZ,ZYMC,LBMC,XYMC FROM V_XSJBXX WHERE [XYID] = " + s.getUserXy().ToString();
 		}
 		else
 		{
-			SqlDataSource1.SelectCommand = "SELECT XSXH,XSXM, XYID, ZYID, XSLBID, SJH,NJ, YJDZ,ZYMC,LBMC,XYMC FROM V_XSJBXX where xsxh like '%" + sxtj + "%' or xsxm like '%" + sxtj + "%' or  xymc like '%" + sxtj + "%' or zymc like '%" + sxtj + "%' or lbmc like '%" + sxtj + "%' or sjh like '%" + sxtj + "%' or yjdz like '%" + sxtj + "%'";
+            SqlDataSource1.SelectCommand = "SELECT XSXH,XSXM, XYID, ZYID, XSLBID, SJH,NJ, YJDZ,ZYMC,LBMC,XYMC FROM V_XSJBXX where [XYID] = " + s.getUserXy().ToString() + " AND xsxh like '%" + sxtj + "%' or xsxm like '%" + sxtj + "%' or  xymc like '%" + sxtj + "%' or zymc like '%" + sxtj + "%' or lbmc like '%" + sxtj + "%' or sjh like '%" + sxtj + "%' or yjdz like '%" + sxtj + "%'";
 		}
+        SqlDataSource3.SelectCommand = "SELECT [ID], [XYMC] FROM [D_XYXXB] WHERE [ID] = " + s.getUserXy().ToString();
 	}
 
 	protected void sxButton_Click ( object sender , EventArgs e )

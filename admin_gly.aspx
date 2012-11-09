@@ -7,24 +7,59 @@
 <title></title>
 <link href="css/reset.css" rel="stylesheet" type="text/css" />
 <link href="css/common.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .auto-style1 {
+            width: 100px;
+            height: 40px;
+        }
+        .auto-style2 {
+            width: 147px;
+            height: 40px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
         <asp:SqlDataSource  ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:syxkConn %>"
-            DeleteCommand="DELETE FROM [T_GLYXXB] WHERE [DLM] = @DLM" InsertCommand="INSERT INTO [T_GLYXXB] ([DLM], [DLMM], [GLYXM],  [SJH], [GLYLX], [YJDZ]) VALUES (@DLM,@DLMM, @GLYXM, @SJH, @GLYLX, @YJDZ)"
-            SelectCommand="SELECT [DLM], [GLYXM], [SJH], [GLYLX], [YJDZ] FROM [T_GLYXXB]" UpdateCommand="UPDATE [T_GLYXXB] SET [GLYXM] = @GLYXM, [SJH] = @SJH, [GLYLX] = @GLYLX, [YJDZ] = @YJDZ WHERE [DLM] = @DLM ">
+            DeleteCommand="DELETE FROM [T_GLYXXB] WHERE [DLM] = @DLM" 
+            InsertCommand="INSERT INTO [T_GLYXXB] ([DLM], [DLMM], [GLYXM],  [SJH], [GLYLX], [YJDZ], [GLYXY]) VALUES (@DLM,@DLMM, @GLYXM, @SJH, @GLYLX, @YJDZ, @GLYXY)"
+            SelectCommand="SELECT T_GLYXXB.DLM, T_GLYXXB.GLYXM, T_GLYXXB.SJH, T_GLYXXB.GLYLX, T_GLYXXB.YJDZ, D_XYXXB.XYMC, T_GLYXXB.GLYXY FROM T_GLYXXB LEFT OUTER JOIN D_XYXXB ON T_GLYXXB.GLYXY = D_XYXXB.ID WHERE (T_GLYXXB.GLYXY &lt;&gt; '')"
+            UpdateCommand="UPDATE [T_GLYXXB] SET [GLYXM] = @GLYXM, [SJH] = @SJH, [GLYLX] = @GLYLX, [YJDZ] = @YJDZ WHERE [DLM] = @DLM ">
             <DeleteParameters>
                 <asp:Parameter Name="DLM" Type="String" />
             </DeleteParameters>
             <UpdateParameters>
-                <asp:Parameter Name="DLM" Type="String" />
                 <asp:Parameter Name="GLYXM" Type="String" />
                 <asp:Parameter Name="DLMM" Type="String" />
-                <asp:Parameter Name="SJH" Type="String" />
                 <asp:Parameter Name="GLYLX" Type="Int32" />
-                <asp:Parameter Name="YJDZ" Type="String" />
-                <asp:Parameter Name="ID" Type="Int32" />
+                <asp:Parameter Name="SJH" Type="String" />
+                <asp:Parameter Name="DLM" Type="String" />
+            </UpdateParameters>
+            <InsertParameters>
+				<asp:Parameter Name="DLM" Type="String" />
+				<asp:Parameter Name="DLMM" Type="String" DefaultValue="888888" />
+				<asp:Parameter Name="GLYXM" Type="String" />
+				<asp:Parameter Name="SJH" Type="String" />
+				<asp:Parameter Name="GLYLX" Type="Int32" />
+				<asp:Parameter Name="YJDZ" Type="String" />
+            </InsertParameters>
+        </asp:SqlDataSource>
+    
+        <asp:SqlDataSource  ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:syxkConn %>"
+            DeleteCommand="DELETE FROM [T_GLYXXB] WHERE [DLM] = @DLM" 
+            InsertCommand="INSERT INTO [T_GLYXXB] ([DLM], [DLMM], [GLYXM],  [SJH], [GLYLX], [YJDZ], [GLYXY]) VALUES (@DLM,@DLMM, @GLYXM, @SJH, @GLYLX, @YJDZ, @GLYXY)"
+            SelectCommand="SELECT T_GLYXXB.DLM, T_GLYXXB.GLYXM, T_GLYXXB.SJH, T_GLYXXB.GLYLX, T_GLYXXB.YJDZ, D_XYXXB.XYMC, T_GLYXXB.GLYXY FROM T_GLYXXB LEFT OUTER JOIN D_XYXXB ON T_GLYXXB.GLYXY = D_XYXXB.ID WHERE (T_GLYXXB.GLYXY &lt;&gt; '')"
+            UpdateCommand="UPDATE [T_GLYXXB] SET [GLYXM] = @GLYXM, [SJH] = @SJH, [GLYLX] = @GLYLX, [YJDZ] = @YJDZ WHERE [DLM] = @DLM ">
+            <DeleteParameters>
+                <asp:Parameter Name="DLM" Type="String" />
+            </DeleteParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="GLYXM" Type="String" />
+                <asp:Parameter Name="DLMM" Type="String" />
+                <asp:Parameter Name="GLYLX" Type="Int32" />
+                <asp:Parameter Name="SJH" Type="String" />
+                <asp:Parameter Name="DLM" Type="String" />
             </UpdateParameters>
             <InsertParameters>
 				<asp:Parameter Name="DLM" Type="String" />
@@ -38,7 +73,7 @@
     
     </div>
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4"
-            DataKeyNames="DLM" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None" Width="100%">
+            DataKeyNames="DLM" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None" Width="100%" EnableModelValidation="True">
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
             <RowStyle BackColor="#EFF3FB" />
             <Columns>
@@ -59,6 +94,15 @@
 						<asp:Label ID="Label1" runat="server" Text='<%# getGLYLX(Convert.ToInt32(Eval("GLYLX"))) %>'></asp:Label>
 					</ItemTemplate>
 				</asp:TemplateField>
+				<asp:TemplateField HeaderText="学院名称" SortExpression="XYMC">
+                    <EditItemTemplate>
+						<asp:DropDownList ID="DropDownList2" runat="server" SelectedValue='<%# Bind("GLYXY") %>' DataSourceID="SqlDataSource2" DataTextField="XYMC" DataValueField="ID">
+						</asp:DropDownList>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("XYMC") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:BoundField DataField="YJDZ" HeaderText="邮箱" SortExpression="YJDZ">
                 </asp:BoundField>
 				<asp:TemplateField ShowHeader="False">
@@ -86,7 +130,7 @@
             <AlternatingRowStyle BackColor="White" />
         </asp:GridView>
         <br />
-        &nbsp;<asp:FormView ID="FormView1" runat="server" DataKeyNames="ID" DataSourceID="SqlDataSource1" DefaultMode="Insert">
+        &nbsp;<asp:FormView ID="FormView1" runat="server" DataKeyNames="ID" DataSourceID="SqlDataSource1" DefaultMode="Insert" EnableModelValidation="True">
             <InsertItemTemplate>
                 <table>
                     <tr>
@@ -115,14 +159,22 @@
                      
                     </tr>
                     <tr>
-                          <td align="right" style="width: 100px">
+                          <td align="right" class="auto-style1">
                             管理员类型：</td>
-                        <td style="width: 147px">
+                        <td class="auto-style2">
 							<asp:DropDownList ID="GLYLXDDL" runat="server" SelectedValue='<%# Bind("GLYLX") %>' Width="153px">
 								<asp:ListItem Value="0">系统管理员</asp:ListItem>
 								<asp:ListItem Value="1">教务管理员</asp:ListItem>
 								<asp:ListItem Value="2">实验管理员</asp:ListItem>
 							</asp:DropDownList></td>
+                    </tr>
+                    <tr>
+                          <td align="right" style="width: 100px">
+                            管理员学院：</td>
+                        <td style="width: 147px">
+							<asp:DropDownList ID="GLYXYDDL" runat="server" SelectedValue='<%# Bind("GLYXY") %>' Width="153px" DataSourceID="SqlDataSource2" DataTextField="XYMC" DataValueField="ID">
+							</asp:DropDownList>
+                          </td>
                     </tr>
                     <tr>
                         <td style="width: 100px; height: 26px">

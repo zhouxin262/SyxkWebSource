@@ -21,12 +21,12 @@ public partial class stu_sykc_sq : System.Web.UI.Page
 		string sxtj = Session["sxtj"] as string;
 		dbModule dm = new dbModule();
 		if ( sxtj == "" || sxtj == null )
-		{
-			SqlDataSource1.SelectCommand = "SELECT [ID], [SYBH], [SYMC], [KCMC], [JSXM], [SYSMC], [SYRS], [SYXN], [SYXINGQ], [SYXQ], [SYSDD], [XINGQMC], [ZMC], [MC], [sqrs], [sprs] FROM [V_YWCXSRSB] where sqzt=1 and syid in (select syid from t_syxxb where kcid in (select id from v_kcxxb where id in( select kcbh from t_kcxxb where id in (select kcid from t_xsxkb where xsxh='" + s.getUserCode() +  "')))) and (xslb='不限' or xslb='" + dm.getXslbByXh( s.getUserCode() ) + "') order by kcmc,symc,sybh";
-		}
+        {
+            SqlDataSource1.SelectCommand = "SELECT [ID], [SYBH], [SYMC], [KCMC], [JSXM], [SYSMC], [SYRS], [SYXN], [SYXINGQ], [SYXQ], [SYSDD], [XINGQMC], [ZMC], [MC], [sqrs], [sprs] FROM [V_YWCXSRSB] where sqzt=1 and syid in (select syid from t_syxxb where kcid in (select id from v_kcxxb where id in( select kcbh from t_kcxxb where id in (select kcid from t_xsxkb where xsxh='" + s.getUserCode() + "')) and (xslb='不限' or xslb='" + dm.getXslbByXh(s.getUserCode()) + "'))) order by sybh";
+        }
 		else
 		{
-            SqlDataSource1.SelectCommand = "SELECT [ID], [SYBH], [SYMC], [KCMC], [JSXM], [SYSMC], [SYRS], [SYXN], [SYXINGQ], [SYXQ], [SYSDD], [XINGQMC], [ZMC], [MC], [sqrs], [sprs] FROM [V_YWCXSRSB] where sqzt=1 and syid in (select syid from t_syxxb where kcid in (select id from v_kcxxb where id in( select kcbh from t_kcxxb where id in (select kcid from t_xsxkb where xsxh='" + s.getUserCode() + "')) and (xslb='不限' or xslb='" + dm.getXslbByXh(s.getUserCode()) + "')" + " and (sybh like '%" + sxtj + "%' or symc like '%" + sxtj + "%' or  jsxm like '%" + sxtj + "%' or sysdd like '%" + sxtj + "%' or zmc like '%" + sxtj + "%' or mc like '%" + sxtj + "%' or syxn like '%" + sxtj + "%' or syxq like '%" + sxtj + "%') order by sybh";
+            SqlDataSource1.SelectCommand = "SELECT [ID], [SYBH], [SYMC], [KCMC], [JSXM], [SYSMC], [SYRS], [SYXN], [SYXINGQ], [SYXQ], [SYSDD], [XINGQMC], [ZMC], [MC], [sqrs], [sprs] FROM [V_YWCXSRSB] where sqzt=1 and syid in (select syid from t_syxxb where kcid in (select id from v_kcxxb where id in( select kcbh from t_kcxxb where id in (select kcid from t_xsxkb where xsxh='" + s.getUserCode() + "')) and (xslb='不限' or xslb='" + dm.getXslbByXh(s.getUserCode()) + "')" + " and (sybh like '%" + sxtj + "%' or symc like '%" + sxtj + "%' or  jsxm like '%" + sxtj + "%' or sysdd like '%" + sxtj + "%' or zmc like '%" + sxtj + "%' or mc like '%" + sxtj + "%' or syxn like '%" + sxtj + "%' or syxq like '%" + sxtj + "%'))) order by sybh";
 		}
     }
 	protected void sxButton_Click ( object sender , EventArgs e )

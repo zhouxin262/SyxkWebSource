@@ -12,8 +12,10 @@
     <form id="form1" runat="server">
     <div>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:syxkConn %>"
-            DeleteCommand="DELETE FROM [D_SYSLXB] WHERE [ID] = @ID" InsertCommand="INSERT INTO [D_SYSLXB] ([LXMC],[LXYWMC]) VALUES (@LXMC,@LXYWMC)"
-            SelectCommand="SELECT ID,LXMC,LXYWMC FROM [D_SYSLXB]" UpdateCommand="UPDATE [D_SYSLXB] SET [LXMC] = @LXMC,LXYWMC=LXYWMC WHERE [ID] = @ID">
+            DeleteCommand="DELETE FROM [D_SYSLXB] WHERE [ID] = @ID" 
+            InsertCommand="INSERT INTO [D_SYSLXB] ([LXMC],[LXYWMC], [XYID]) VALUES (@LXMC,@LXYWMC,@XYID)"
+            SelectCommand="SELECT ID,LXMC,LXYWMC FROM [D_SYSLXB]" 
+            UpdateCommand="UPDATE [D_SYSLXB] SET [LXMC] = @LXMC,LXYWMC=@LXYWMC WHERE [ID] = @ID">
             <DeleteParameters>
                 <asp:Parameter Name="ID" Type="Int32" />
             </DeleteParameters>
@@ -25,6 +27,7 @@
             <InsertParameters>
                 <asp:Parameter Name="LXMC" Type="String" />
                 <asp:Parameter Name="LXYWMC" Type="String" />
+                <asp:Parameter Name="XYID" Type="String" />
             </InsertParameters>
         </asp:SqlDataSource>
     

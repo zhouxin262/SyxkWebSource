@@ -18,5 +18,10 @@ public partial class eadm_sys_bj : System.Web.UI.Page
         {
             Response.Redirect("error.aspx");
         }
+
+        if (s.getUserXy() != "")
+        {
+            SqlDataSource1.SelectCommand = "SELECT [ID], [SYSMC], [SYSDD], [SYSLXID], [LXMC], [SYSRL], [SYSMS], [TTPBS] FROM [V_SYSXXB] WHERE [XYID] = " + s.getUserXy() + " ORDER BY [SYSMC]";
+        }
 	}
 }

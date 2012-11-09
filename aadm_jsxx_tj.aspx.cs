@@ -18,6 +18,7 @@ public partial class aadm_jsxx_tj : System.Web.UI.Page
         {
             Response.Redirect("error.aspx");
         }
+        XYSDS.SelectCommand = "SELECT [XYMC], [ID] FROM [D_XYXXB] WHERE [ID] = " + s.getUserXy().ToString() + " ORDER BY [ID]";
     }
 	protected void addButton_Click ( object sender , EventArgs e )
 	{

@@ -82,6 +82,7 @@ function TABLE1_onclick() {
                                                     <asp:ListItem Selected="True" Value="0">学生</asp:ListItem>
                                                     <asp:ListItem Value="1">任课教师</asp:ListItem>
                                                     <asp:ListItem Value="2">实验教师</asp:ListItem>
+                                                    <asp:ListItem Value="4">教务管理员</asp:ListItem>
                                                     <asp:ListItem Value="3">管理员</asp:ListItem>
                                                 </asp:DropDownList>
 												&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;<asp:Button ID="loginButton" OnClientClick="return check();" runat="server" Text="登  录" OnClick="loginButton_Click" TabIndex="4"></asp:Button></td>

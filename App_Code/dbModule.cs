@@ -270,7 +270,135 @@ public class dbModule
                 return "error!";
         }
     }
+    public string getUxyByUcode(string ucode, priCode uType)
+    {
+        SqlCommand comm = new SqlCommand();
+        SqlDataAdapter sda = new SqlDataAdapter();
+        DataTable dt = new DataTable();
+        int rows = 0;
+        switch (uType)
+        {
+            case priCode.xtgly:
 
+                comm.Connection = conn;
+                //管理员类型0是系统管理员,1是教务管理员,2是实验室管理员
+
+                comm.CommandText = "select GLYXY from T_GLYXXB where DLM=@username and  GLYLX=0";
+                comm.Parameters.Clear();
+                comm.Parameters.AddWithValue("username", ucode);
+                sda.SelectCommand = comm;
+
+                rows = sda.Fill(dt);
+                if (rows == 0)
+                {
+                    return "error!";
+                }
+                else if (rows > 1)
+                {
+                    return "error!";
+                }
+                else //rows == 1
+                {
+                    return dt.Rows[0]["GLYXY"].ToString();
+                }
+            case priCode.xs:
+                comm.Connection = conn;
+                //管理员类型0是系统管理员,1是教务管理员,2是实验室管理员
+
+                comm.CommandText = "select XYID from t_xsxxb where xsxh=@username";
+                comm.Parameters.Clear();
+                comm.Parameters.AddWithValue("username", ucode);
+                sda.SelectCommand = comm;
+
+                rows = sda.Fill(dt);
+                if (rows == 0)
+                {
+                    return "error!";
+                }
+                else if (rows > 1)
+                {
+                    return "error!";
+                }
+                else //rows == 1
+                {
+                    return dt.Rows[0]["XYID"].ToString();
+                }
+                break;
+            case priCode.js:
+                comm.Connection = conn;
+                //管理员类型0是系统管理员,1是教务管理员,2是实验室管理员
+
+                comm.CommandText = "select XYID from t_jsxxb where gzh=@username ";
+                comm.Parameters.Clear();
+                comm.Parameters.AddWithValue("username", ucode);
+                sda.SelectCommand = comm;
+
+                rows = sda.Fill(dt);
+                if (rows == 0)
+                {
+                    return "error!";
+                }
+                else if (rows > 1)
+                {
+                    return "error!";
+                }
+                else //rows == 1
+                {
+                    return dt.Rows[0]["XYID"].ToString();
+                }
+                break;
+            case priCode.jwgly:
+
+                comm.Connection = conn;
+                //管理员类型0是系统管理员,1是教务管理员,2是实验室管理员
+
+                comm.CommandText = "select GLYXY from T_GLYXXB where DLM=@username and  GLYLX=1";
+                comm.Parameters.Clear();
+                comm.Parameters.AddWithValue("username", ucode);
+                sda.SelectCommand = comm;
+
+                rows = sda.Fill(dt);
+                if (rows == 0)
+                {
+                    return "error!";
+                }
+                else if (rows > 1)
+                {
+                    return "error!";
+                }
+                else //rows == 1
+                {
+                    return dt.Rows[0]["GLYXY"].ToString();
+                }
+                break;
+            case priCode.sygly:
+
+                comm.Connection = conn;
+                //管理员类型0是系统管理员,1是教务管理员,2是实验室管理员
+
+                comm.CommandText = "select GLYXY from T_GLYXXB where DLM=@username and  GLYLX=2";
+                comm.Parameters.Clear();
+                comm.Parameters.AddWithValue("username", ucode);
+                sda.SelectCommand = comm;
+
+                rows = sda.Fill(dt);
+                if (rows == 0)
+                {
+                    return "error!";
+                }
+                else if (rows > 1)
+                {
+                    return "error!";
+                }
+                else //rows == 1
+                {
+                    return dt.Rows[0]["GLYXY"].ToString();
+                }
+                break;
+            default:
+                return "error!";
+        }
+    }
     public int adminLogin(string userName, string password)
     {
         SqlCommand comm = new SqlCommand();
@@ -606,11 +734,11 @@ public class dbModule
 
     }
 
-    public int addKcxx(string kcbh, string kcmc, string jsid, string kcxx, int kcxs, int skrs)
+    public int addKcxx(string kcbh, string kcmc, string jsid, string kcxx, int kcxs, int skrs, int xyid)
     {
         SqlCommand comm = new SqlCommand();
         comm.Connection = conn;
-        comm.CommandText = "insert into t_kcxxb (kcbh,kcmc,jsid,kcxx,kcxs,skrs) VALUES(@kcbh,@kcmc,@jsid,@kcxx,@kcxs,@skrs)";
+        comm.CommandText = "insert into t_kcxxb (kcbh,kcmc,jsid,kcxx,kcxs,skrs, xyid) VALUES(@kcbh,@kcmc,@jsid,@kcxx,@kcxs,@skrs, @xyid)";
         comm.Parameters.Clear();
         comm.Parameters.AddWithValue("kcbh", kcbh);
         comm.Parameters.AddWithValue("kcmc", kcmc);
@@ -618,6 +746,7 @@ public class dbModule
         comm.Parameters.AddWithValue("kcxx", kcxx);
         comm.Parameters.AddWithValue("kcxs", kcxs);
         comm.Parameters.AddWithValue("skrs", skrs);
+        comm.Parameters.AddWithValue("xyid", xyid);
         int rows = -1;
         try
         {
@@ -1424,16 +1553,16 @@ public class dbModule
         DateTime sykssj = syrq.AddHours(kssj);
         DateTime syjssj = syrq.AddHours(jssj);
 
-        SqlConnection kqxtConn = new SqlConnection(ConfigurationManager.ConnectionStrings["mjxtConn"].ConnectionString);
-        comm = new SqlCommand("syxk_insert_grant", kqxtConn);
-        comm.CommandType = CommandType.StoredProcedure;
-        comm.Parameters.AddWithValue("outid", outid);
-        comm.Parameters.AddWithValue("sysid", sysid);
-        comm.Parameters.AddWithValue("kssj", sykssj.AddMinutes(-10));
-        comm.Parameters.AddWithValue("jssj", syjssj.AddMinutes(10));
-        kqxtConn.Open();
-        comm.ExecuteNonQuery();
-        kqxtConn.Close();
+        //SqlConnection kqxtConn = new SqlConnection(ConfigurationManager.ConnectionStrings["mjxtConn"].ConnectionString);
+        //comm = new SqlCommand("syxk_insert_grant", kqxtConn);
+        //comm.CommandType = CommandType.StoredProcedure;
+        //comm.Parameters.AddWithValue("outid", outid);
+        //comm.Parameters.AddWithValue("sysid", sysid);
+        //comm.Parameters.AddWithValue("kssj", sykssj.AddMinutes(-10));
+        //comm.Parameters.AddWithValue("jssj", syjssj.AddMinutes(10));
+        //kqxtConn.Open();
+        //comm.ExecuteNonQuery();
+        //kqxtConn.Close();
         conn.Close();
         return 0;
     }

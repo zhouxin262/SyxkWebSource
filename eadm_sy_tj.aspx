@@ -20,7 +20,7 @@
 			<asp:SqlDataSource ID="XSLBSDS" runat="server" ConnectionString="<%$ ConnectionStrings:syxkConn %>"
 				SelectCommand="SELECT [ID], [LBMC] FROM [D_XSLBB]"></asp:SqlDataSource>
 			<asp:SqlDataSource ID="KCSDS" runat="server" ConnectionString="<%$ ConnectionStrings:syxkConn %>"
-				SelectCommand="SELECT [ID], KCMC FROM [V_KCXXB]"></asp:SqlDataSource>
+				SelectCommand="SELECT [ID], [KCMC] FROM [V_KCXXB]"></asp:SqlDataSource>
 			<asp:Label ID="messageLabel" runat="server" ForeColor="Red"></asp:Label><br />
 			<table>
 				<tr>
@@ -33,7 +33,7 @@
 					<td align="right" style="width: 100px; height: 24px;">
 						实验课程：</td>
 					<td style="width: 147px; height: 24px;">
-						<asp:DropDownList ID="SYKCDDL" runat="server" DataSourceID="KCSDS" DataTextField="KCMC" DataValueField="ID">
+						<asp:DropDownList ID="SYKCDDL" runat="server" DataSourceID="KCSDS" DataTextField="KCMC" DataValueField="ID" Width="185px">
 						</asp:DropDownList></td>
 				</tr>
 				<tr>
@@ -69,7 +69,7 @@
 					<td align="right" style="width: 100px">
 						实验学时：</td>
 					<td style="width: 147px">
-						<asp:TextBox CssClass="text_input" ID="SYXSTextBox" runat="server" Text=''></asp:TextBox></td>
+						<asp:TextBox CssClass="text_input" ID="SYXSTextBox" runat="server" Text='8'></asp:TextBox></td>
 				</tr>
 							<%--	<tr>
 					<td align="right" style="width: 100px">

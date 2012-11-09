@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
-using Excel = Interop.Excel;
+using Excel = Microsoft.Office.Interop.Excel;
 // using Excel;
 using System.IO;
 

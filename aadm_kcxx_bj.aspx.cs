@@ -22,11 +22,28 @@ public partial class aadm_kcxx_bj : System.Web.UI.Page
 		dbModule dm = new dbModule();
 		if ( sxtj == "" || sxtj == null )
 		{
-			SqlDataSource1.SelectCommand = "SELECT [ID], [KCBH], [KCMC], [JSID], [JSXM], [KCXX],[KCXS], [SFAPSY], [SKRS] FROM [V_KCJBXXB] ORDER BY [KCBH],KCMC,JSXM";
+            if (s.getUserXy().ToString() != "")
+            {
+                SqlDataSource1.SelectCommand = "SELECT [ID], [KCBH], [KCMC], [JSID], [JSXM], [KCXX],[KCXS], [SFAPSY], [SKRS] FROM [V_KCJBXXB] WHERE [XYID] = " + s.getUserXy().ToString() + " ORDER BY [KCBH],KCMC,JSXM";
+            }
+            else
+            {
+                SqlDataSource1.SelectCommand = "SELECT [ID], [KCBH], [KCMC], [JSID], [JSXM], [KCXX],[KCXS], [SFAPSY], [SKRS] FROM [V_KCJBXXB] ORDER BY [KCBH],KCMC,JSXM";
+            }
+            
 		}
 		else
-		{
-			SqlDataSource1.SelectCommand = "SELECT [ID], [KCBH], [KCMC], [JSID], [JSXM], [KCXX],[KCXS], [SFAPSY], [SKRS] FROM [V_KCJBXXB] where (kcbh like '%" + sxtj + "%' or kcmc like '%" + sxtj + "%' or jsxm like '%" + sxtj + "%' or kcxx like '%" + sxtj + "%' ) ORDER BY KCBH,KCMC,JSXM";
+        {
+            if (s.getUserXy().ToString() != "")
+            {
+
+                SqlDataSource1.SelectCommand = "SELECT [ID], [KCBH], [KCMC], [JSID], [JSXM], [KCXX],[KCXS], [SFAPSY], [SKRS] FROM [V_KCJBXXB] WHERE [XYID] = " + s.getUserXy().ToString() + "  AND (kcbh like '%" + sxtj + "%' or kcmc like '%" + sxtj + "%' or jsxm like '%" + sxtj + "%' or kcxx like '%" + sxtj + "%' ) ORDER BY KCBH,KCMC,JSXM";
+            }
+            else
+            {
+
+                SqlDataSource1.SelectCommand = "SELECT [ID], [KCBH], [KCMC], [JSID], [JSXM], [KCXX],[KCXS], [SFAPSY], [SKRS] FROM [V_KCJBXXB] WHERE  (kcbh like '%" + sxtj + "%' or kcmc like '%" + sxtj + "%' or jsxm like '%" + sxtj + "%' or kcxx like '%" + sxtj + "%' ) ORDER BY KCBH,KCMC,JSXM";
+            }
 		}
 	}
 

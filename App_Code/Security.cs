@@ -22,20 +22,22 @@ public class Security
 	private priCode s;
 	private string userCode;
 	private string userName;
+    private string userXy;
 
-	public Security ( priCode c,string uC,string uN )
+	public Security ( priCode c,string uC,string uN, string uX )
 	{
 		s = c;
 		userCode = uC;
 		userName = uN;
-		
+        userXy = uX;		
 	}
 
 	public Security ()
 	{
 		s = priCode.none;
 		userCode = "";
-		userName = "";
+        userName = "";
+        userXy = "";	
 	}
 	public priCode getSecurity ()
 	{
@@ -55,16 +57,26 @@ public class Security
 	public string getUserCode ()
 	{
 		return userCode;
-	}
+    }
 
-	public void setUserName ( string n )
-	{
-		userName = n;
-	}
+    public void setUserName(string n)
+    {
+        userName = n;
+    }
 
-	public string getUserName ()
-	{
-		return userName;
-	}
+    public string getUserName()
+    {
+        return userName;
+    }
+
+    public void setUserXy(string x)
+    {
+        userXy = x;
+    }
+
+    public string getUserXy()
+    {
+        return userXy;
+    }
 
 }

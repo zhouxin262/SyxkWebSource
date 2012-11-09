@@ -44,7 +44,13 @@ public partial class aadm_kcxx_tj : System.Web.UI.Page
             messageLabel.Text = Resources.Resource.strNotValidInt;
         }
         dbModule dm = new dbModule();
-        int i = dm.addKcxx(kcbh, kcmc, jsid, kcxx, kcxs, skrs);
+        Security s = Session["sec"] as Security;
+        if (s == null)
+        {
+            Response.Redirect("error.aspx");
+        }
+        int xyid = Int32.Parse(s.getUserXy());
+        int i = dm.addKcxx(kcbh, kcmc, jsid, kcxx, kcxs, skrs, xyid);
 		switch ( i )
 		{
 			case 1://正常添加成功

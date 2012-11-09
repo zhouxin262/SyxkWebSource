@@ -22,12 +22,13 @@ public partial class aadm_jsxx_bj : System.Web.UI.Page
 		dbModule dm = new dbModule();
 		if ( sxtj == "" || sxtj == null )
 		{
-			SqlDataSource1.SelectCommand = "SELECT [GZH], [JSXM], [ZC], [XYMC], [LBMC], [SJH], [YJDZ], [JSJJ], [XYID], [JSLB] FROM [V_JSJBXXB] ORDER BY [GZH]";
+			SqlDataSource1.SelectCommand = "SELECT [GZH], [JSXM], [ZC], [XYMC], [LBMC], [SJH], [YJDZ], [JSJJ], [XYID], [JSLB] FROM [V_JSJBXXB] WHERE [XYID] = "+s.getUserXy().ToString()+" ORDER BY [GZH]";
 		}
 		else
 		{
-			SqlDataSource1.SelectCommand = "SELECT [GZH], [JSXM], [ZC], [XYMC], [LBMC], [SJH], [YJDZ], [JSJJ], [XYID], [JSLB] FROM [V_JSJBXXB] where (gzh like '%" + sxtj + "%' or jsxm like '%" + sxtj + "%' or zc like '%" + sxtj + "%' or xymc like '%" + sxtj + "%' or lbmc like '%" + sxtj + "%' or sjh like '%" + sxtj + "%' or yjdz like '%" + sxtj + "%' ) ORDER BY [GZH]";
+            SqlDataSource1.SelectCommand = "SELECT [GZH], [JSXM], [ZC], [XYMC], [LBMC], [SJH], [YJDZ], [JSJJ], [XYID], [JSLB] FROM [V_JSJBXXB] where [XYID] = " + s.getUserXy().ToString() + " AND (gzh like '%" + sxtj + "%' or jsxm like '%" + sxtj + "%' or zc like '%" + sxtj + "%' or xymc like '%" + sxtj + "%' or lbmc like '%" + sxtj + "%' or sjh like '%" + sxtj + "%' or yjdz like '%" + sxtj + "%' ) ORDER BY [GZH]";
 		}
+        SqlDataSource3.SelectCommand = "SELECT [ID], [XYMC] FROM [D_XYXXB] WHERE [ID] = " + s.getUserXy().ToString();
 	}
 
 	protected void sxButton_Click ( object sender , EventArgs e )
